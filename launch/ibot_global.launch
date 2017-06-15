@@ -1,0 +1,82 @@
+<launch>
+
+<!-- ____________________________ -->
+<!-- Configuration des trames CAN -->
+
+<!-- Port CAN -->
+<param name="can_port_name"             value="can0"/>
+
+<!-- Trame IMU -->
+<param name="can_imu_id"                value="0x90"/>
+<param name="can_imu_topic"             value="ibot_can_imu"/>
+<param name="can_imu_blink_id"          value="0x190"/>
+
+<!-- Alarme Batterie -->
+<param name="can_battery_alarm_id"      value="0x80"/>
+<param name="can_battery_alarm_topic"   value="ibot_can_battery_alarm"/>
+
+<!-- Moteur Gauche (topic must be equal to topic_secure_vel from secure layer) -->
+<param name="can_motor_left_id"         value="0x30"/>
+<param name="can_motor_left_topic"      value="/secure_vel"/>
+
+<!-- Moteur Droit (topic must be equal to topic_secure_vel from secure layer) -->
+<param name="can_motor_right_id"        value="0x35"/>
+<param name="can_motor_right_topic"     value="/secure_vel"/>
+
+<!-- Ultrason Gauche -->
+<param name="can_us_left_id"            value="0xC3"/>
+<param name="can_us_left_service"       value="/ibot_us_left"/>
+
+<!-- Ultrason Front -->
+<param name="can_us_front_id"           value="0xC1"/>
+<param name="can_us_front_service"      value="/ibot_us_front"/>
+
+<!-- Ultrason Ground -->
+<param name="can_us_ground_id"          value="0xC2"/>
+<param name="can_us_ground_service"     value="/ibot_us_ground"/>
+
+<!-- Ultrason Droite -->
+<param name="can_us_right_id"           value="0xC0"/>
+<param name="can_us_right_service"      value="/ibot_us_right"/>
+
+<!-- Power Supply Service -->
+<param name="can_power_supply_id"       value="0x91"/>
+<param name="can_power_supply_service"  value="/ibot_powersupply"/>
+
+<!-- _____________________________________ -->
+<!-- Lancement du noeud ibot_can_interface -->
+<node pkg="ibot_can_interface" type="ibot_can_interface_node" name="ibot_can_interface"/>
+
+<!-- _________________________ -->
+<!-- Configuration SecureLayer -->
+
+<!-- Config des topics "ibot_can_interface -> ibot_secure_layer" defined before -->
+
+<!-- Input Velocity Topic : -->
+<param name="topic_cmd_vel"             value="/cmd_vel"/>
+
+<!-- (topic must be equal to topic_secure_vel from secure layer) -->
+<param name="topic_secure_vel"          value="/secure_vel"/>
+<param name="obstacle_threshold"        value="0.15"/>
+
+
+<!-- ____________________________________ -->
+<!-- Lancement du noeud ibot_secure_layer -->
+
+<node pkg="ibot_secure_layer" type="ibot_secure_layer_node" name="ibot_secure_layer_node"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</launch>
