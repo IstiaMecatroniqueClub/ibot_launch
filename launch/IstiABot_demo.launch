@@ -1,0 +1,13 @@
+<!--
+-->
+
+<launch>
+
+    <include file="$(find rplidar_ros)/launch/rplidar.launch" />
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" />
+    <node pkg="ibot_can_interface" type="ibot_can_interface_node" name="ibot_can_interface"/>
+    <include file="$(find ibotslam)/launch/ibotslam.launch" />
+    <node pkg="tf" type="static_transform_publisher" name="base_to_laser_broadcaster" args="0 0 0 0 0 0 /base_link /laser 100"/>
+
+</launch>
+
